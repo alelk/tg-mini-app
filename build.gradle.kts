@@ -6,8 +6,9 @@ plugins {
     id("convention.publication")
 }
 
-group = "io.github.kirillNay"
-version = "1.2.0"
+group = "io.github.alelk"
+val versionName by extra(checkNotNull(File("app.version").readText().lines().firstOrNull()?.trim()?.takeIf { it.isNotBlank() }) { "app.version empty" })
+version = versionName
 
 repositories {
     mavenCentral()
