@@ -98,12 +98,11 @@ publishing {
 
 tasks.withType<Sign>().configureEach {
     onlyIf {
-        !gradle.startParameter.taskNames.any { it.endsWith("publishToMavenLocal") }
+        !gradle.startParameter.taskNames.any { it.endsWith("publishToMavenLocal") || it == "publishAllPublicationsToGitHubPackagesRepository" }
     }
 }
 
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
-    setRequired { !gradle.taskGraph.hasTask("publishAllPublicationsToGitHubPackagesRepository") }
     sign(publishing.publications)
 }
