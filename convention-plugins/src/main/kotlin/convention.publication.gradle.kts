@@ -104,5 +104,6 @@ tasks.withType<Sign>().configureEach {
 
 // Signing artifacts. Signing.* extra properties values will be used
 signing {
+    setRequired { !gradle.taskGraph.hasTask("publishAllPublicationsToGitHubPackagesRepository") }
     sign(publishing.publications)
 }
