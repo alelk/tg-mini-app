@@ -15,6 +15,8 @@ ext["signing.password"] = null
 ext["signing.secretKeyRingFile"] = null
 ext["ossrhUsername"] = null
 ext["ossrhPassword"] = null
+ext["gpr.user"] = null
+ext["gpr.token"] = null
 
 // Grabbing secrets from local.properties file or from environment variables, which could be used on CI
 val secretPropsFile = project.rootProject.file("local.properties")
@@ -32,6 +34,8 @@ if (secretPropsFile.exists()) {
     ext["signing.secretKeyRingFile"] = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
     ext["ossrhUsername"] = System.getenv("OSSRH_USERNAME")
     ext["ossrhPassword"] = System.getenv("OSSRH_PASSWORD")
+    ext["gpr.user"] = System.getenv("GITHUB_USER")
+    ext["gpr.token"] = System.getenv("GITHUB_TOKEN")
 }
 
 val javadocJar by tasks.registering(Jar::class) {
@@ -51,6 +55,14 @@ publishing {
                 password = getExtraString("ossrhPassword")
             }
         }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/alelk/tg-mini-app")
+            credentials {
+                username = getExtraString("gpr.user") ?: System.getenv("GITHUB_USER") ?: "alelk"
+                password = getExtraString("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 
     // Configure all publications
@@ -62,7 +74,7 @@ publishing {
         pom {
             name.set("Telegram mini app KMP")
             description.set("Library for creating telegram mini apps with Kotlin and Compose Multiplatform.")
-            url.set("https://github.com/kirillNay/tg-mini-app")
+            url.set("https://github.com/alelk/tg-mini-app")
 
             licenses {
                 license {
@@ -78,7 +90,7 @@ publishing {
                 }
             }
             scm {
-                url.set("https://github.com/kirillNay/tg-mini-app")
+                url.set("https://github.com/alelk/tg-mini-app")
             }
         }
     }
