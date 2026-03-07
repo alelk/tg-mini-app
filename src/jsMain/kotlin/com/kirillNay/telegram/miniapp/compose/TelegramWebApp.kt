@@ -11,34 +11,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ComposeViewport
 import com.kirillNay.telegram.miniapp.webApp.EventType
 import com.kirillNay.telegram.miniapp.webApp.webApp
-import org.jetbrains.skiko.wasm.onWasmReady
+import kotlinx.browser.document
 
 /**
  * Use [telegramWebApp] to provide Compose content of mini app.
  *
+ * @param rootElementId the id of the root HTML element to mount Compose into. Defaults to "root".
  * @param content is compose content of your mini app.
- *
  */
 @OptIn(ExperimentalComposeUiApi::class)
 fun telegramWebApp(
+    rootElementId: String = "root",
     content: @Composable (TelegramStyle) -> Unit
 ) {
-    onWasmReady {
-        ComposeViewport {
-            var paddings by remember { mutableStateOf(ViewPort(webApp.viewportHeight.dp, webApp.viewportStableHeight.dp)) }
-            var colors by remember { mutableStateOf(TelegramColors.fromWebApp()) }
+    val root = document.getElementById(rootElementId) ?: document.body!!
+    ComposeViewport(root) {
+        var paddings by remember { mutableStateOf(ViewPort(webApp.viewportHeight.dp, webApp.viewportStableHeight.dp)) }
+        var colors by remember { mutableStateOf(TelegramColors.fromWebApp()) }
 
-            LaunchedEffect(true) {
-                webApp.addEventHandler(EventType.VIEWPORT_CHANGED) {
-                    paddings = ViewPort(webApp.viewportHeight.dp, webApp.viewportStableHeight.dp)
-                }
-
-                webApp.addEventHandler(EventType.THEME_CHANGED) {
-                    colors = TelegramColors.fromWebApp()
-                }
+        LaunchedEffect(true) {
+            webApp.addEventHandler(EventType.VIEWPORT_CHANGED) {
+                paddings = ViewPort(webApp.viewportHeight.dp, webApp.viewportStableHeight.dp)
             }
 
-            content(TelegramStyle(paddings, colors))
+            webApp.addEventHandler(EventType.THEME_CHANGED) {
+                colors = TelegramColors.fromWebApp()
+            }
         }
+
+        content(TelegramStyle(paddings, colors))
     }
 }
