@@ -1,5 +1,12 @@
 # Telegram Mini App KMP
 
+# [1.1.0](https://github.com/alelk/tg-mini-app/compare/v1.0.0...v1.1.0) (2026-03-25)
+
+
+### Features
+
+* improve proxy configuration for Telegram bot with Ktor HttpClient and buildUrl ([5cad7ea](https://github.com/alelk/tg-mini-app/commit/5cad7ea80482bfbaaaac5063a236b9c66af1de91))
+
 # 1.0.0 (2026-03-07)
 
 
