@@ -7,7 +7,11 @@ plugins {
 }
 
 group = "io.github.alelk"
-val versionName by extra(checkNotNull(File("app.version").readText().lines().firstOrNull()?.trim()?.takeIf { it.isNotBlank() }) { "app.version empty" })
+val versionName by extra(
+    checkNotNull(
+        projectDir.resolve("app.version").readText().lines().firstOrNull()?.trim()
+            ?.takeIf { it.isNotBlank() }
+    ) { "app.version empty" })
 version = versionName
 
 repositories {
