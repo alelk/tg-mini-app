@@ -1,5 +1,12 @@
 # Telegram Mini App KMP
 
+## [1.1.1](https://github.com/alelk/tg-mini-app/compare/v1.1.0...v1.1.1) (2026-10-01)
+
+
+### Bug Fixes
+
+* file merge fix ([c023793](https://github.com/alelk/tg-mini-app/commit/c023793f39278179faecd66e3128f16b18e5b571))
+
 # [1.1.0](https://github.com/alelk/tg-mini-app/compare/v1.0.0...v1.1.0) (2026-03-25)
 
 
