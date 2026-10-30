@@ -58,12 +58,19 @@ internal fun TelegramWebAppContent(
     var style by remember(webApp) { mutableStateOf(webApp.currentStyle()) }
 
     DisposableEffect(webApp) {
-        val update: (Any?) -> Unit = { style = webApp.currentStyle() }
+        val update: () -> Unit = {
+            val newStyle = webApp.currentStyle()
+            if (style != newStyle) {
+                style = newStyle
+            }
+        }
         val subscriptions = listOf(
-            webApp.onEvent(WebAppEvent.ViewportChanged, update),
-            webApp.onEvent(WebAppEvent.ThemeChanged, update),
-            webApp.onEvent(WebAppEvent.SafeAreaChanged, update),
-            webApp.onEvent(WebAppEvent.ContentSafeAreaChanged, update),
+            webApp.onEvent(WebAppEvent.ViewportChanged) { isStateStable ->
+                if (isStateStable) update()
+            },
+            webApp.onEvent(WebAppEvent.ThemeChanged) { update() },
+            webApp.onEvent(WebAppEvent.SafeAreaChanged) { update() },
+            webApp.onEvent(WebAppEvent.ContentSafeAreaChanged) { update() },
         )
         onDispose { subscriptions.forEach { it.unsubscribe() } }
     }
