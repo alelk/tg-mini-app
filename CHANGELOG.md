@@ -1,3 +1,12 @@
+# Telegram Mini App KMP
+
+## [1.1.2](https://github.com/alelk/tg-mini-app/compare/v1.1.1...v1.1.2) (2026-10-30)
+
+
+### Bug Fixes
+
+* **build:** parse version from app.version ignoring unspecified default ([36e26fc](https://github.com/alelk/tg-mini-app/commit/36e26fcb2267db609bb3d1d9ee01060c12d0a072))
+
 # Changelog
 
 All notable changes to `tg-mini-app` are documented here.
