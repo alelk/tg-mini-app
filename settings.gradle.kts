@@ -1,9 +1,8 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        mavenCentral()
         google()
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
     }
 
     plugins {
@@ -11,10 +10,9 @@ pluginManagement {
         val composeVersion = extra["compose.version"] as String
 
         kotlin("multiplatform").version(kotlinVersion)
+        id("org.jetbrains.kotlin.plugin.compose").version(kotlinVersion)
         id("org.jetbrains.compose").version(composeVersion)
-        kotlin("plugin.compose").version(kotlinVersion)
     }
 }
 
 rootProject.name = "tg-mini-app"
-includeBuild("convention-plugins")

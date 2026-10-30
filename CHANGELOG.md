@@ -1,50 +1,74 @@
-# Telegram Mini App KMP
+# Changelog
 
-## [1.1.1](https://github.com/alelk/tg-mini-app/compare/v1.1.0...v1.1.1) (2026-10-01)
+All notable changes to `tg-mini-app` are documented here.
+The project follows [Semantic Versioning](https://semver.org/).
 
+## [2.0.0] - 2026-09-30
+
+Major update: Kotlin/Wasm support, the Telegram Mini Apps API up to Bot API 10.1 and a type-safe public API.
+See "Migrating from 1.x to 2.0" in the README.
+
+### Added
+- `wasmJs` target next to `js`; the library code is shared in `webMain`.
+- Telegram Mini Apps API from Bot API 7.0 to 10.1: `SettingsButton`, `secondaryButton`, new theme colors,
+  vertical swipes, fullscreen, safe area insets, orientation lock, home screen shortcuts, emoji status,
+  `shareMessage`, `shareToStory`, `downloadFile`, `hideKeyboard`, `requestChat`, `BiometricManager`,
+  `Accelerometer`, `Gyroscope`, `DeviceOrientation`, `LocationManager`, `DeviceStorage`, `SecureStorage`,
+  `initDataUnsafe.signature` and `chatJoinRequestQueryId`.
+- Typed `WebAppEvent`s with parsed payloads; `onEvent` returns an `EventSubscription`.
+- `await*` suspend variants of popups, invoices, sharing and permission requests.
+- `telegramWebApp(fallback = ...)` for pages opened outside Telegram, `LocalTelegramStyle`,
+  safe area insets and color scheme in `TelegramStyle`.
+- `WebApp.isAvailable`, `WebApp.isRunningInTelegram`, `WebApp.getOrNull()`.
+
+### Changed
+- Public data types (`WebAppUser`, `WebAppChat`, `WebAppInitData`, `ThemeParams`) are Kotlin data classes.
+- `MainButton` became `BottomButton`, `ButtonParams` became `BottomButtonParams`.
+- Haptic feedback takes enums; `ChatType.CHANNEL` is `ChatType.CHANNELS`.
+- Kotlin 2.4.20, Compose Multiplatform 1.12.1; publishing through the Central Portal.
+
+### Fixed
+- `openLink` passed the `WebApp` object instead of an options object.
+- `telegramWebApp` never removed its event handlers.
+- `offClick` did not remove handlers registered with `onClick`.
+- `null` fields in popup parameters crashed telegram-web-app.js.
+- User and chat ids were declared as Kotlin `Long` instead of JS numbers; `auth_date` is parsed from its string form.
+- Unknown color schemes and invoice statuses threw exceptions.
+
+## [1.2.0] - 2026-03-29
+
+- Telegram Mini Apps API up to Bot API 6.9 for the Kotlin/JS target.
+
+## [1.1.1] (2026-10-01)
 
 ### Bug Fixes
+* file merge fix
 
-* file merge fix ([c023793](https://github.com/alelk/tg-mini-app/commit/c023793f39278179faecd66e3128f16b18e5b571))
-
-# [1.1.0](https://github.com/alelk/tg-mini-app/compare/v1.0.0...v1.1.0) (2026-03-25)
-
+## [1.1.0] (2026-03-25)
 
 ### Features
+* improve proxy configuration for Telegram bot with Ktor HttpClient and buildUrl
 
-* improve proxy configuration for Telegram bot with Ktor HttpClient and buildUrl ([5cad7ea](https://github.com/alelk/tg-mini-app/commit/5cad7ea80482bfbaaaac5063a236b9c66af1de91))
-
-# 1.0.0 (2026-03-07)
-
+## [1.0.0] (2026-03-07)
 
 ### Bug Fixes
-
-* **ci:** Do not perform signing task when github packages publishing. ([1654607](https://github.com/alelk/tg-mini-app/commit/16546071b249c84f0291c3bb9628e71b29bd0a94))
-* **ci:** Do not perform signing task when github packages publishing. ([f44d82d](https://github.com/alelk/tg-mini-app/commit/f44d82dce8c46738b19145e0b2a07bd3f9d9d860))
-
+* **ci:** Do not perform signing task when github packages publishing.
 
 ### Features
+* **ci:** Configure github packages publication.
+* update kotlin & compose
 
-* **ci:** Configure github packages publication. ([7c23b79](https://github.com/alelk/tg-mini-app/commit/7c23b799c98f3135063e9b15fd74a47aca0d3d19))
-* update kotlin & compose ([8f8c254](https://github.com/alelk/tg-mini-app/commit/8f8c254425745a0031074327aeec2d6120b08487))
-
-# [1.0.0-rc.3](https://github.com/alelk/tg-mini-app/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2025-11-24)
-
+## [1.0.0-rc.3] (2025-11-24)
 
 ### Bug Fixes
+* **ci:** Do not perform signing task when github packages publishing.
 
-* **ci:** Do not perform signing task when github packages publishing. ([38abdef](https://github.com/alelk/tg-mini-app/commit/38abdef1f1e587df9ec906c6546207e21b32a3b8))
-
-# [1.0.0-rc.2](https://github.com/alelk/tg-mini-app/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2025-11-24)
-
+## [1.0.0-rc.2] (2025-11-24)
 
 ### Bug Fixes
+* **ci:** Do not perform signing task when github packages publishing.
 
-* **ci:** Do not perform signing task when github packages publishing. ([6baf2ec](https://github.com/alelk/tg-mini-app/commit/6baf2ec69d3b6effa98cb648556a6f89731a6ec9))
-
-# 1.0.0-rc.1 (2025-11-24)
-
+## [1.0.0-rc.1] (2025-11-24)
 
 ### Features
-
-* **ci:** Configure github packages publication. ([be6713e](https://github.com/alelk/tg-mini-app/commit/be6713eb68562f1adc2f225cb125628c42c10dd2))
+* **ci:** Configure github packages publication.
