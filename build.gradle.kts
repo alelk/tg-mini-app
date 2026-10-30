@@ -11,12 +11,13 @@ plugins {
 group = "io.github.alelk"
 
 val appVersionFile = projectDir.resolve("app.version")
-val versionName: String = project.findProperty("version") as? String
-    ?: if (appVersionFile.exists()) {
-        appVersionFile.readLines().firstOrNull { it.isNotBlank() }?.trim() ?: "2.0.0"
-    } else {
-        "2.0.0"
-    }
+val versionName: String = project.findProperty("version")
+    ?.toString()
+    ?.takeIf { it.isNotBlank() && it != "unspecified" }
+    ?: checkNotNull(
+        appVersionFile.takeIf { it.exists() }?.readText()?.lines()?.firstOrNull()?.trim()
+            ?.takeIf { it.isNotBlank() }
+    ) { "app.version is empty or not found" }
 version = versionName
 
 val composeVersion = property("compose.version") as String
